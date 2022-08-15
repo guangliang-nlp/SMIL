@@ -1,3 +1,6 @@
+from torchtext import nn
+
+
 class IMDbFuse(nn.Module):
     """docstring forLenet5 Sound"""
     def __init__(self,extractor1, extractor2, extractor_grad=False):
@@ -16,7 +19,7 @@ class IMDbFuse(nn.Module):
         self.softplus = nn.Softplus()
 
         if not extractor_grad:
-            # for p in self.image_extractor.parameters():
+            # for p in selfe.image_extractor.parameters():
             #     p.requires_grad_(False)
 
             for p in self.text_extractor.parameters():
