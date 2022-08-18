@@ -2,9 +2,10 @@ import torch.nn as nn
 from collections import OrderedDict
 import torch
 
+
 class InferNet(nn.Module):
 
-    def __init__(self, output_layers = ['default']):
+    def __init__(self, output_layers=['default']):
         super(InferNet, self).__init__()
         self.output_layers = output_layers
 
@@ -18,7 +19,6 @@ class InferNet(nn.Module):
 
         self.fc2 = nn.Linear(480, 64)
         self.fc21 = nn.Linear(480, 64)
-
 
     def forward(self, x, meta_train=True):
 
@@ -67,7 +67,7 @@ class InferNet(nn.Module):
                 outputs['conv2'] = mu2
 
             if 'fc1' in x.keys():
-                mu3 = self.fc1(x['fc1']) 
+                mu3 = self.fc1(x['fc1'])
                 outputs['fc1'] = mu3
 
             if 'fc2' in x.keys():
@@ -76,10 +76,10 @@ class InferNet(nn.Module):
 
             return outputs
 
-        
+
 class InferNetNew(nn.Module):
 
-    def __init__(self, output_layers = ['default']):
+    def __init__(self, output_layers=['default']):
         super(InferNetNew, self).__init__()
         self.output_layers = output_layers
 
@@ -96,9 +96,6 @@ class InferNetNew(nn.Module):
         self.fc2 = nn.Linear(480, 64)
         self.fc21 = nn.Linear(480, 64)
 
-
-
-
     def forward(self, x, meta_train=True):
 
         outputs = OrderedDict()
@@ -107,13 +104,13 @@ class InferNetNew(nn.Module):
             if 'conv1' in x.keys():
                 mu1 = self.conv1(x['conv1'])
                 # std1 = torch.exp(0.5*mu1)
-                
+
                 outputs['conv1'] = torch.randn_like(mu1) + mu1
 
             if 'conv2' in x.keys():
                 mu2 = self.conv2(x['conv2'])
                 # std2 = torch.exp(mu2)
-                
+
                 outputs['conv2'] = torch.randn_like(mu2) + mu2
 
             if 'fc0' in x.keys():
@@ -123,17 +120,17 @@ class InferNetNew(nn.Module):
             if 'fc1' in x.keys():
                 mu3 = self.fc1(x['fc1'])
                 sigma3 = self.fc11(x['fc1'])
-                std3 = torch.exp(0.5*sigma3)
+                std3 = torch.exp(0.5 * sigma3)
                 std3 = torch.clamp(std3, min=0, max=1)
-                
+
                 outputs['fc1'] = torch.randn_like(mu3) + mu3
 
             if 'fc2' in x.keys():
                 mu4 = self.fc2(x['fc2'])
                 sigma4 = self.fc21(x['fc2'])
-                std4 = torch.exp(0.5*sigma4)
+                std4 = torch.exp(0.5 * sigma4)
                 std4 = torch.clamp(std4, min=0, max=1)
-                
+
                 outputs['fc2'] = torch.randn_like(mu4) + mu4
 
             return outputs
@@ -149,13 +146,12 @@ class InferNetNew(nn.Module):
                 mu2 = self.conv2(x['conv2'])
                 outputs['conv2'] = mu2
 
-
             if 'fc0' in x.keys():
                 mu0 = self.fc0(x['fc0'])
                 outputs['fc0'] = mu0
 
             if 'fc1' in x.keys():
-                mu3 = self.fc1(x['fc1']) 
+                mu3 = self.fc1(x['fc1'])
                 outputs['fc1'] = mu3
 
             if 'fc2' in x.keys():
@@ -163,9 +159,6 @@ class InferNetNew(nn.Module):
                 outputs['fc2'] = mu4
 
             return outputs
-
-
-
 
 
 if __name__ == '__main__':
@@ -177,8 +170,8 @@ if __name__ == '__main__':
     device = torch.device("cuda")
     encoder = InferNet().to(device)
     images = torch.rand(8, 1, 28, 28).to(device)
-    a = {'conv1':images}
-    x = encoder(a,  meta_train=True)
+    a = {'conv1': images}
+    x = encoder(a, meta_train=True)
     print(x.keys())
     # summary(encoder, (1, 28, 28))
     # for i,p in enumerate(cnn.parameters()):
