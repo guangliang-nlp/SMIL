@@ -7,7 +7,7 @@ import torch.nn.functional as F
 import numpy as np
 import pandas as pd
 import os
-import cv2 
+
 import random
 from PIL import Image
 import math
