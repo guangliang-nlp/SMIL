@@ -61,10 +61,10 @@ def main(args):
 
     #creat model 
     print('==> model creating....')
-    extractor1 = LeNet5().to(device)
-    extractor2 = SNetPluse().to(device)
+    img_encoder = LeNet5().to(device)
+    sound_encoder = SNetPluse().to(device)
     
-    image_sound_extractor = SoundLenet5mean(extractor1, extractor2, extractor_grad=False).to(device)
+    image_sound_extractor = SoundLenet5mean(img_encoder, sound_encoder, extractor_grad=False).to(device)
     
     ckpt_image_sound = torch.load(path.join(args.soundmnist_model_path, args.soundmnist_model_name))
     image_sound_extractor.load_state_dict(ckpt_image_sound['state_dict'])

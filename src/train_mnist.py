@@ -23,8 +23,8 @@ from utils.misc import save_ckpt
 def parse_args():
     parser = argparse.ArgumentParser(description='PyTorch training script')
     # general parm
-    parser.add_argument('-d', '--data_root', default = '../data/mnist/', type = str, help='data root' )
-    parser.add_argument('--checkpoint', default='./save/mnist_pca/105', type=str, help='checkpoint directory')
+    parser.add_argument('-d', '--data_root', default = '/media/Research/liuguan5/sound-mnist/mnist/', type = str, help='data root' )
+    parser.add_argument('--checkpoint', default='/media/Research/liuguan5/auxiliary_info/', type=str, help='checkpoint directory')
     parser.add_argument('--snapshot', default=1, type=int, help='save models for every # epochs (default: 1)')
 
     # model related parm
