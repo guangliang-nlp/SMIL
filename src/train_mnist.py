@@ -71,7 +71,7 @@ def main(args):
 
     evl_step = 0
 
-    ckpt_dir_path = path.join(args.checkpoint, datetime.datetime.now().isoformat())
+    ckpt_dir_path = args.checkpoint#path.join(args.checkpoint, "img.encoder.ckpt")
     # print(ckpt_dir_path)
     if not path.exists(ckpt_dir_path):
             os.makedirs(ckpt_dir_path)

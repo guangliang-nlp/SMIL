@@ -30,7 +30,7 @@ def save_ckpt(state, path, epoch, best_acc = None, train_acc=None):
     ckpt_path = os.path.join(path + '/' + filename)
     torch.save(state, ckpt_path)
     if best_acc is not None:
-        bestname = 'epoch_'+ str(epoch) + '_' +'test_accuracy_' + str(best_acc) +'_train_accuracy_' + str(train_acc) +'_best_model.path.tar'
+        bestname = '/media/Research/liuguan5/auxiliary_info/img.encoder.ckpt'
         shutil.copyfile(ckpt_path, os.path.join( path + '/' + bestname))
 
 def save_ckpt_classifier(state, path, iteration, best_acc = None):
